@@ -1340,6 +1340,9 @@ button {
   background: rgba(3, 15, 26, .72);
   backdrop-filter: blur(7px);
 }
+.card-dialog.has-saved-card {
+  width: min(560px, calc(100% - 32px));
+}
 .card-dialog-shell {
   padding: clamp(22px, 4vw, 38px);
 }
@@ -1383,11 +1386,18 @@ button {
   align-items: start;
   gap: clamp(22px, 4vw, 38px);
 }
+.card-dialog-grid.is-saved-card {
+  grid-template-columns: minmax(0, 480px);
+  justify-content: center;
+}
 .card-form {
   display: grid;
   grid-template-columns: 1fr;
   gap: 15px;
   margin: 0;
+}
+.card-form[hidden] {
+  display: none;
 }
 .card-demo-warning {
   margin: 0 0 2px;
@@ -1473,6 +1483,10 @@ button {
   flex-direction: column;
   gap: 12px;
   padding-top: 2px;
+}
+.is-saved-card .card-preview-column {
+  width: 100%;
+  padding-top: 0;
 }
 .demo-card {
   position: relative;

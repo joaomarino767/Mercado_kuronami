@@ -1,4 +1,15 @@
 (() => {
+  try {
+    const savedCard = JSON.parse(sessionStorage.getItem("kuronami-card-session") || "null");
+    if (savedCard && typeof savedCard.holder === "string" && /^\d{4}$/.test(savedCard.lastFour)) {
+      const cardLink = document.querySelector(".card-register-link");
+      const cardLabel = cardLink?.querySelector(".card-register-label");
+      if (cardLabel) cardLabel.textContent = "Meus cartões";
+      cardLink?.setAttribute("aria-label", "Meus cartões Kuronami");
+      cardLink?.setAttribute("title", "Meus cartões Kuronami");
+    }
+  } catch { /* Sem acesso à sessão, o link continua permitindo cadastrar um cartão. */ }
+
   const products = [
     {
       id: "banana",

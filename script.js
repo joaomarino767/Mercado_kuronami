@@ -1,4 +1,19 @@
 (() => {
+  const cardSessionKey = "kuronami-card-session";
+  const readSessionCard = () => {
+    try {
+      const savedCard = JSON.parse(sessionStorage.getItem(cardSessionKey) || "null");
+      if (
+        savedCard &&
+        typeof savedCard.holder === "string" &&
+        typeof savedCard.brand === "string" &&
+        /^\d{4}$/.test(savedCard.lastFour) &&
+        /^(0[1-9]|1[0-2])\/\d{2}$/.test(savedCard.expiry)
+      ) return savedCard;
+    } catch { /* O cadastro funciona apenas em memória se a sessão não estiver disponível. */ }
+    return null;
+  };
+
   const menuToggle = document.querySelector(".menu-toggle");
   const siteNav = document.querySelector(".site-nav");
 
@@ -70,10 +85,14 @@
   const expiryInput = document.querySelector("#card-expiry");
   const cvvInput = document.querySelector("#card-cvv");
   const cardDialogClose = document.querySelector(".card-dialog-close");
+  const cardDialogTitle = document.querySelector("#card-dialog-title");
+  const cardDialogDescription = document.querySelector("#card-dialog-description");
+  const cardDialogGrid = document.querySelector(".card-dialog-grid");
   const cardStatus = document.querySelector("#card-form-status");
   const cardSessionResult = document.querySelector("#card-session-result");
   const cardSessionSummary = document.querySelector("#card-session-summary");
   let lastCardTrigger = null;
+  let sessionCard = readSessionCard();
 
   const getCardBrand = (digits) => {
     if (digits.startsWith("4")) return "VISA";
@@ -96,6 +115,13 @@
     const previewNumber = document.querySelector("#demo-card-number");
     const previewName = document.querySelector("#demo-card-holder");
     const previewExpiry = document.querySelector("#demo-card-expiry");
+    if (sessionCard) {
+      if (previewNumber) previewNumber.textContent = `•••• •••• •••• ${sessionCard.lastFour}`;
+      if (previewName) previewName.textContent = sessionCard.holder.toUpperCase();
+      if (previewExpiry) previewExpiry.textContent = sessionCard.expiry;
+      return;
+    }
+
     const numberSlots = Math.max(16, digits.length);
     const previewDigits = Array.from({ length: numberSlots }, (_, index) => digits[index] || "•");
     const groupedNumber = previewDigits.join("").match(/.{1,4}/g)?.join(" ") || "";
@@ -104,6 +130,27 @@
     if (previewName) previewName.textContent = cardholderInput?.value.trim().toUpperCase() || "NOME DO TITULAR";
     if (previewExpiry) previewExpiry.textContent = expiryInput?.value || "MM/AA";
   };
+
+  const syncCardRegistrationUI = () => {
+    const hasSessionCard = Boolean(sessionCard);
+    if (cardForm) cardForm.hidden = hasSessionCard;
+    cardDialogGrid?.classList.toggle("is-saved-card", hasSessionCard);
+    cardDialog?.classList.toggle("has-saved-card", hasSessionCard);
+    if (cardSessionResult) cardSessionResult.hidden = !hasSessionCard;
+    if (cardDialogTitle) cardDialogTitle.textContent = hasSessionCard ? "Meus cartões" : "Seu cartão Kuronami";
+    if (cardDialogDescription) {
+      cardDialogDescription.textContent = hasSessionCard
+        ? "Seu cartão demonstrativo fica disponível somente nesta visita."
+        : "Veja como o cadastro poderá funcionar no app.";
+    }
+    document.querySelectorAll("[data-card-registration]").forEach((trigger) => {
+      const label = trigger.querySelector(".card-registration-label");
+      if (label) label.textContent = hasSessionCard ? "Meus cartões" : "Cadastrar cartão";
+    });
+    if (hasSessionCard) updateCardPreview();
+  };
+
+  syncCardRegistrationUI();
 
   const clearFieldError = (input, errorId) => {
     input?.removeAttribute("aria-invalid");
@@ -120,6 +167,7 @@
   const openCardDialog = (trigger = null) => {
     if (!cardDialog || cardDialog.open) return;
     lastCardTrigger = trigger;
+    syncCardRegistrationUI();
     cardDialog.showModal();
     cardDialogClose?.focus();
   };
@@ -221,29 +269,26 @@
       return;
     }
 
-    const summary = {
+    sessionCard = {
       holder,
       brand,
       lastFour: digits.slice(-4),
       expiry: expiryInput.value,
     };
+    try {
+      sessionStorage.setItem(cardSessionKey, JSON.stringify(sessionCard));
+    } catch { /* A cópia em memória permanece enquanto esta página estiver aberta. */ }
     if (cardSessionSummary) {
-      cardSessionSummary.textContent = `${summary.holder} · ${summary.brand} final ${summary.lastFour} · válido até ${summary.expiry}. Esses dados demonstrativos serão descartados ao sair desta página.`;
+      cardSessionSummary.textContent = `${sessionCard.holder} · ${sessionCard.brand} · final ${sessionCard.lastFour} · validade ${sessionCard.expiry}. O número completo e o código de segurança não são mantidos.`;
     }
-    if (cardSessionResult) cardSessionResult.hidden = false;
-    if (cardStatus) cardStatus.textContent = "Cadastro demonstrativo concluído. Nenhum dado foi enviado ou salvo fora desta página.";
 
-    // Apaga o número completo e o código de segurança logo após a confirmação.
-    cardNumberInput.value = "";
+    // Mantém apenas nome, bandeira, validade e os últimos quatro dígitos na memória desta página.
+    cardForm.reset();
     cvvInput.value = "";
-    cardholderInput.value = "";
-    expiryInput.value = "";
-    updateCardPreview();
+    document.querySelectorAll("[aria-invalid='true']").forEach((input) => input.removeAttribute("aria-invalid"));
+    document.querySelectorAll(".field-error").forEach((error) => { error.textContent = ""; });
+    syncCardRegistrationUI();
     cardSessionResult?.scrollIntoView({ block: "nearest", behavior: "smooth" });
-  });
-
-  window.addEventListener("pagehide", () => {
-    cardForm?.reset();
   });
 
   if (new URLSearchParams(window.location.search).get("acao") === "cadastro-cartao") {
