@@ -1,0 +1,13 @@
+KURONAMI — LANDING PAGE
+
+Como abrir
+1. Extraia a pasta.
+2. Abra index.html em um navegador moderno.
+
+A entrada com portas e as revelações ao rolar usam GSAP 3.15.1 e ScrollTrigger pelo CDN do jsDelivr. Essas animações precisam de internet. As imagens estão locais. A faixa de fotos passa em loop automaticamente sem depender do GSAP e sem controle de pausa.
+
+O site respeita a preferência de movimento reduzido do dispositivo. Quando essa opção está ativa, as animações ficam desativadas.
+
+O botão “Baixar o Kuronami” mostra um aviso, e “Entrar no mercado” abre o catálogo demonstrativo. O formulário “Cadastrar cartão” é apenas uma prévia: use somente dados fictícios. Ele mostra o verso reto do cartão em assets/cartao-verso-preview.png, valida os campos no navegador, apaga o número completo e o código de segurança após concluir e mantém apenas um resumo mascarado enquanto a página estiver aberta. Nenhum dado é enviado ou gravado em armazenamento; sair ou recarregar a página descarta o resumo. Não use dados de um cartão real.
+
+As nove cenas da galeria estão em assets/. A logo anexada está preservada sem alterações como logo-kuronami-original.png. O site usa logo-kuronami.png, que remove apenas a margem totalmente transparente do arquivo; todos os pixels visíveis, cores, transparências e o desenho permanecem iguais. favicon.png usa o emblema recortado da mesma logo sobre um quadrado azul-marinho para manter contraste na aba do navegador.

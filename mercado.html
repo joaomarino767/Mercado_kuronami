@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f4">
+    <meta name="description" content="Explore o mercado demonstrativo Kuronami, com uma experiência de compra pensada para todos.">
+    <title>Mercado Kuronami — compra demonstrativa</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" sizes="64x64">
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("kuronami-market-theme");
+        if (savedTheme === "light" || savedTheme === "dark") document.documentElement.dataset.theme = savedTheme;
+      } catch { /* O tema claro continua disponível sem armazenamento local. */ }
+    </script>
+    <link rel="stylesheet" href="mercado.css">
+    <script defer src="mercado.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#catalogo">Pular para os produtos</a>
+    <div class="market-note"><span class="note-dot" aria-hidden="true"></span> MERCADO DEMONSTRATIVO <span class="note-divider" aria-hidden="true">·</span> UMA EXPERIÊNCIA KURONAMI</div>
+
+    <header class="market-header">
+      <div class="header-row">
+        <a class="market-brand" href="index.html" aria-label="Kuronami — voltar à página inicial">
+          <img src="assets/logo-kuronami-escura.png" data-theme-light="assets/logo-kuronami-escura.png" data-theme-dark="assets/logo-kuronami.png" alt="Kuronami">
+        </a>
+        <div class="delivery-info" aria-label="Região de referência: Maringá, Paraná">
+          <span class="delivery-icon" aria-hidden="true">⌖</span>
+          <span><small>REGIÃO DE REFERÊNCIA</small><strong>Maringá e região, PR</strong></span>
+          <span class="chevron" aria-hidden="true">⌄</span>
+        </div>
+        <form class="search-form" role="search">
+          <label class="visually-hidden" for="product-search">Buscar produtos</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="product-search" type="search" placeholder="O que você procura hoje?" autocomplete="off">
+          <button type="submit">Buscar</button>
+        </form>
+        <div class="header-actions">
+          <a
+            class="card-register-link"
+            href="index.html?acao=cadastro-cartao#experiencia"
+            aria-label="Cadastrar cartão Kuronami"
+            title="Cadastrar cartão Kuronami"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2.5"></rect>
+              <path d="M3 10h18M7 15h4"></path>
+            </svg>
+            <span class="card-register-label">Cadastrar cartão</span>
+          </a>
+          <button class="cart-trigger" type="button" aria-haspopup="dialog" aria-controls="cart-dialog">
+            <svg class="cart-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/><path d="M9 12v.01M15 12v.01"/></svg>
+            <span class="cart-label">Minha sacola</span>
+            <span class="cart-count" id="cart-count" aria-label="0 itens">0</span>
+          </button>
+        </div>
+      </div>
+      <nav class="department-nav" aria-label="Departamentos">
+        <div class="department-links">
+          <a href="#departamentos">Departamentos <span aria-hidden="true">⌄</span></a>
+          <button type="button" data-category-link="Hortifruti">Hortifruti</button>
+          <button type="button" data-category-link="Mercearia">Mercearia</button>
+          <button type="button" data-category-link="Frios e laticínios">Frios e laticínios</button>
+          <button type="button" data-category-link="Padaria">Padaria</button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Ativar tema escuro">
+          <svg class="theme-icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"/></svg>
+          <svg class="theme-icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <span class="theme-toggle-label" id="theme-toggle-label">Escuro</span>
+        </button>
+        <a class="back-link" href="index.html">Voltar ao projeto <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="welcome-hero" aria-labelledby="welcome-title">
+        <div class="welcome-copy">
+          <p class="welcome-kicker"><span></span> BOAS COMPRAS, NO SEU RITMO</p>
+          <h1 id="welcome-title">Seu mercado.<br><em>Do seu jeito.</em></h1>
+          <p>Encontre o que precisa em uma experiência simples, acolhedora e pensada para todo mundo.</p>
+          <a class="hero-button" href="#catalogo">Explorar produtos <span aria-hidden="true">↓</span></a>
+          <div class="welcome-tags"><span>Compra demonstrativa</span><span>·</span><span>Referência: Maringá, PR</span></div>
+        </div>
+        <div class="welcome-photo" role="img" aria-label="Imagem conceitual do hortifrúti Kuronami, com acesso confortável para clientes"></div>
+        <div class="photo-caption"><span class="caption-mark" aria-hidden="true">✳</span><span>UM MERCADO QUE ACOLHE<br><strong>Do primeiro passo à última escolha</strong></span></div>
+      </section>
+
+      <section class="department-section" id="departamentos" aria-labelledby="department-title">
+        <div class="section-heading">
+          <div><p class="section-eyebrow">ENCONTRE SEU CAMINHO</p><h2 id="department-title">Compre por departamento</h2></div>
+          <p>Um jeito rápido de chegar ao que está na sua lista.</p>
+        </div>
+        <div class="department-cards">
+          <button class="department-card department-fruit" type="button" data-category-link="Hortifruti"><span class="department-art" aria-hidden="true">🥑🍌</span><span><small>FRESCOS DO DIA</small><strong>Hortifruti</strong></span><span class="department-arrow" aria-hidden="true">↗</span></button>
+          <button class="department-card department-pantry" type="button" data-category-link="Mercearia"><span class="department-art" aria-hidden="true">🛒</span><span><small>PARA A DESPENSA</small><strong>Mercearia</strong></span><span class="department-arrow" aria-hidden="true">↗</span></button>
+          <button class="department-card department-dairy" type="button" data-category-link="Frios e laticínios"><span class="department-art" aria-hidden="true">🥛🧀</span><span><small>SEMPRE À MÃO</small><strong>Frios e laticínios</strong></span><span class="department-arrow" aria-hidden="true">↗</span></button>
+          <button class="department-card department-bakery" type="button" data-category-link="Padaria"><span class="department-art" aria-hidden="true">🥖</span><span><small>RECÉM-SAÍDOS</small><strong>Padaria</strong></span><span class="department-arrow" aria-hidden="true">↗</span></button>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
+        <div class="catalog-heading">
+          <div><p class="section-eyebrow">SELEÇÃO KURONAMI</p><h2 id="catalog-title">Produtos para sua casa</h2></div>
+          <label class="sort-control">Ordenar por
+            <select id="sort-products" aria-label="Ordenar produtos">
+              <option value="featured">Destaques</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+              <option value="name">Nome</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-row" role="group" aria-label="Filtrar produtos por departamento">
+          <button class="filter-chip is-active" type="button" data-filter="Todos" aria-pressed="true">Todos os produtos</button>
+          <button class="filter-chip" type="button" data-filter="Hortifruti" aria-pressed="false">Hortifruti</button>
+          <button class="filter-chip" type="button" data-filter="Mercearia" aria-pressed="false">Mercearia</button>
+          <button class="filter-chip" type="button" data-filter="Frios e laticínios" aria-pressed="false">Frios e laticínios</button>
+          <button class="filter-chip" type="button" data-filter="Padaria" aria-pressed="false">Padaria</button>
+        </div>
+        <p class="result-summary" id="result-summary" aria-live="polite"></p>
+        <div class="product-grid" id="product-grid"></div>
+        <div class="no-results" id="no-results" hidden>
+          <span aria-hidden="true">⌕</span><h3>Não encontramos esse produto.</h3><p>Tente outro termo ou escolha um departamento acima.</p>
+          <button type="button" id="clear-search">Limpar busca</button>
+        </div>
+        <p class="price-note"><span aria-hidden="true">ⓘ</span> Valores de referência consultados em catálogo digital. Preços, ofertas e disponibilidade podem variar conforme a loja, o CEP e a data. Os itens desta página fazem parte de uma demonstração.</p>
+      </section>
+
+      <section class="access-promise" aria-label="Compromisso com a acessibilidade">
+        <span class="promise-symbol" aria-hidden="true">✳</span>
+        <p><strong>Comprar com autonomia deve ser simples.</strong><br>Estamos imaginando cada detalhe do Kuronami com mais conforto, clareza e acessibilidade.</p>
+        <a href="index.html#acessibilidade">Conheça o projeto <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="market-footer">
+      <a class="footer-brand" href="index.html"><img src="assets/logo-kuronami-escura.png" data-theme-light="assets/logo-kuronami-escura.png" data-theme-dark="assets/logo-kuronami.png" alt="Kuronami"></a>
+      <p>Um mercado autônomo, pensado para todo mundo.</p>
+      <span>PROJETO CONCEITUAL · EXPERIÊNCIA DE COMPRA DEMONSTRATIVA</span>
+    </footer>
+
+    <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title">
+      <div class="cart-panel-head"><div><p class="section-eyebrow">SUA COMPRA</p><h2 id="cart-title">Minha sacola <span id="cart-title-count">(0)</span></h2></div><button class="icon-button cart-close" type="button" aria-label="Fechar sacola">×</button></div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-empty" id="cart-empty"><span aria-hidden="true">🛍️</span><h3>Sua sacola está vazia</h3><p>Explore os departamentos e adicione seus favoritos.</p><button class="continue-shopping" type="button">Continuar comprando</button></div>
+      <div class="cart-summary" id="cart-summary" hidden>
+        <div class="subtotal-row"><span>Subtotal</span><strong id="cart-subtotal">R$ 0,00</strong></div>
+        <p>Entrega e disponibilidade não são calculadas nesta demonstração.</p>
+        <button class="checkout-button" id="checkout-button" type="button">Continuar <span aria-hidden="true">→</span></button>
+      </div>
+    </dialog>
+
+    <dialog class="demo-dialog" id="demo-dialog" aria-labelledby="demo-title">
+      <button class="icon-button demo-close" type="button" aria-label="Fechar aviso">×</button>
+      <span class="demo-symbol" aria-hidden="true">✳</span>
+      <p class="section-eyebrow">KURONAMI EM DESENVOLVIMENTO</p>
+      <h2 id="demo-title">Esta compra é uma demonstração.</h2>
+      <p>O catálogo ajuda a visualizar como poderá ser comprar no Kuronami. Pedidos e pagamentos ainda não estão disponíveis.</p>
+      <button class="checkout-button demo-understood" type="button">Entendi</button>
+    </dialog>
+
+    <div class="toast" id="market-toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
