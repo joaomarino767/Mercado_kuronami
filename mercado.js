@@ -1,7 +1,11 @@
 (() => {
   try {
-    const savedCard = JSON.parse(sessionStorage.getItem("kuronami-card-session") || "null");
-    if (savedCard && typeof savedCard.holder === "string" && /^\d{4}$/.test(savedCard.lastFour)) {
+    const storedCards = JSON.parse(sessionStorage.getItem("kuronami-cards-session") || "null");
+    const legacyCard = JSON.parse(sessionStorage.getItem("kuronami-card-session") || "null");
+    const hasSavedCards = (Array.isArray(storedCards) && storedCards.some((card) =>
+      card && typeof card.holder === "string" && /^\d{4}$/.test(card.lastFour)
+    )) || (legacyCard && typeof legacyCard.holder === "string" && /^\d{4}$/.test(legacyCard.lastFour));
+    if (hasSavedCards) {
       const cardLink = document.querySelector(".card-register-link");
       const cardLabel = cardLink?.querySelector(".card-register-label");
       if (cardLabel) cardLabel.textContent = "Meus cartões";

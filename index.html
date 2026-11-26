@@ -278,6 +278,16 @@
         </header>
 
         <div class="card-dialog-grid">
+          <section class="card-saved-list" id="card-saved-list" aria-labelledby="card-saved-list-title" hidden>
+            <div class="card-saved-list-heading">
+              <h3 id="card-saved-list-title">Cartões cadastrados</h3>
+              <span id="card-count">0/3</span>
+            </div>
+            <div class="card-saved-items" id="card-saved-items"></div>
+            <button class="button button-cyan card-add-button" id="card-add-button" type="button">Cadastrar cartão <span aria-hidden="true">+</span></button>
+            <p class="card-limit-note" id="card-limit-note" hidden>Você já tem três cartões. Remova um para cadastrar outro.</p>
+          </section>
+
           <form class="card-form" id="card-registration-form" method="dialog" autocomplete="off" novalidate>
             <p class="card-demo-warning"><strong>Protótipo:</strong> use somente dados fictícios. O cartão fica disponível nesta aba até ela ser fechada; nada é enviado a um servidor.</p>
 
@@ -321,7 +331,7 @@
             <p class="card-preview-note">Verso ilustrativo. O cartão não está ativo.</p>
             <div class="card-session-result" id="card-session-result" hidden>
               <span class="session-check" aria-hidden="true">✓</span>
-              <div><strong>Cartão cadastrado nesta visita</strong><span id="card-session-summary"></span></div>
+              <div><strong>Cartão da sessão</strong><span id="card-session-summary"></span></div>
             </div>
           </aside>
         </div>
